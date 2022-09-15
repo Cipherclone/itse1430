@@ -17,12 +17,7 @@ do
 
     switch(input)
     {
-        
-        case MenuOption.Add:
-        {
-            AddMovie(); 
-            break;
-        }
+        case MenuOption.Add: AddMovie(); break;
         case MenuOption.Edit: EditMovie(); break;
         case MenuOption.View: ViewMovie(); break;
         case MenuOption.Delete: DeleteMovie(); break;
@@ -129,7 +124,6 @@ string ReadString(string message, bool required)
 int ReadInt32(string message, int mininmumValue, int maximumValue)
 {
     Console.Write(message);
-
     do
     {
         string value = Console.ReadLine();
@@ -138,7 +132,6 @@ int ReadInt32(string message, int mininmumValue, int maximumValue)
         {
             if (result >= mininmumValue && result <= maximumValue)
             return result;
-
         }
 
         Console.WriteLine("Value must be between " + mininmumValue + " and " + maximumValue);
@@ -149,9 +142,6 @@ int ReadInt32(string message, int mininmumValue, int maximumValue)
 
     } while (true);
 
-
-    
-    
 }
 
 void AddMovie ()
