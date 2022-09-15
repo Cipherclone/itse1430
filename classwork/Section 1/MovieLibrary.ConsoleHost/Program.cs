@@ -173,7 +173,6 @@ void ViewMovie()
     }
 
     
-    
     /*String Formatting
     //Option 1 - concatination
     //Console.WriteLine("Length: " + runLength + " mins");
