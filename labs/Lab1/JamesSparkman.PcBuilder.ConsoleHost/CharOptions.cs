@@ -3,7 +3,6 @@ ITSE 1430
 Fall 2022
 James Sparkman
 */
-
 enum CharOptions
 {
     a = 1,
@@ -14,6 +13,5 @@ enum CharOptions
     f,
     g,
     
-
     z = -1,
 }

@@ -8,13 +8,12 @@ DisplayInformation();
 bool done = false;
 int cartPrice = 0;
 
-string processorName = "";
+string processorName = ""; 
 string memoryName = "";
 string primaryStorageName = "";
 string secondaryStorageName = "";
 string graphicsCardName = "";
 string OSname = "";
-
 
 int processorPrice = 0;
 int memoryPrice = 0;
@@ -23,7 +22,6 @@ int secondaryStoragePrice = 0;
 int graphicsCardPrice = 0;
 int OSprice = 0;
 
-// current story = 7
 do
 {
     MenuOption input = DisplayMenu();
@@ -40,14 +38,13 @@ do
     }
 } while (!done);
 
-
-// functions!
+// functions
 
 void DisplayInformation()
 {
     Console.WriteLine("James Sparkman");
     Console.WriteLine("ITSE 1430");
-    Console.WriteLine("Fall 2022"); // TODO add date before submission
+    Console.WriteLine("Fall 2022");
 }
 
 MenuOption DisplayMenu()
@@ -62,7 +59,6 @@ MenuOption DisplayMenu()
     Console.WriteLine("E)dit Order");
     Console.WriteLine("Q)uit");
 
-
     do
     {
         ConsoleKeyInfo key = Console.ReadKey(true);
@@ -75,7 +71,6 @@ MenuOption DisplayMenu()
             case ConsoleKey.E: return MenuOption.Edit;
         }
     } while (true);
-
 }
 
 void StartOrder ()
@@ -92,10 +87,8 @@ void StartOrder ()
 
 void PrintCart ()
 {
-
     if (cartPrice != 0)
     {
-
         Console.WriteLine("Processor:" + "".PadLeft(10,' ') + processorName + " $" + processorPrice);
         Console.WriteLine("Memory:" + "".PadLeft(13,' ') +  memoryName + "$".PadLeft(13, ' ') + memoryPrice);
         Console.WriteLine("Primary Storage:    " + primaryStorageName + "$".PadLeft(9,' ') + primaryStoragePrice);
@@ -147,7 +140,6 @@ void EditOrder()
 
         }
     }
-
 }
 
 bool GetBool (string message)
@@ -162,10 +154,7 @@ bool GetBool (string message)
             return true;
         else if (key.Key == ConsoleKey.N)
             return false;
-        
-
     } while (true);
-
 }
 
 CharOptions GetOption (string message, int options)
@@ -176,7 +165,7 @@ CharOptions GetOption (string message, int options)
     do
     {
         ConsoleKeyInfo key = Console.ReadKey(true);
-        
+
         switch (key.Key)
         {
             case ConsoleKey.A: currentOption = CharOptions.a; break;
@@ -190,12 +179,11 @@ CharOptions GetOption (string message, int options)
 
         if ((int)currentOption <= options)
             finished = true;
-       
     } while (!finished);
 
     Console.WriteLine();
     return currentOption;
-} 
+}
 
 void DisplayProcessors ()
 {
@@ -218,7 +206,6 @@ void DisplayProcessors ()
         case CharOptions.f: processorName = "Intel i5-12600K  "; processorPrice = 1280; break;
 
     }
-    
 }
 
 void DisplayMemory()
@@ -239,7 +226,6 @@ void DisplayMemory()
         case CharOptions.d: memoryName = "64 GB "; memoryPrice = 410; break;
         case CharOptions.e: memoryName = "128 GB"; memoryPrice = 600; break;
     }
-
 }
 
 void DisplayPrimaryStorage()

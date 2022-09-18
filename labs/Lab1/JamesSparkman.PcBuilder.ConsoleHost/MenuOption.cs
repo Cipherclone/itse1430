@@ -5,18 +5,9 @@ James Sparkman
 */
 enum MenuOption
 {
-    //TODO ADD MORE OPTIONS
-    // test
     StartOrder = 1,
     ViewOrder,
     Clear,
     Edit,
-
-
-
-
     Quit,
-    
-
-
 }
