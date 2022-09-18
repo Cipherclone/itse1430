@@ -83,6 +83,10 @@ void StartOrder ()
     cartPrice = 0;
     DisplayProcessors();
     DisplayMemory();
+    DisplayPrimaryStorage();
+    DisplaySecondaryStorage();
+    DisplayGraphicsCard();
+    DisplayOperatingSystem();
 
 }
 
@@ -94,13 +98,13 @@ void PrintCart ()
 
         Console.WriteLine("Processor:" + "".PadLeft(10,' ') + processorName + " $" + processorPrice);
         Console.WriteLine("Memory:" + "".PadLeft(13,' ') +  memoryName + "$".PadLeft(13, ' ') + memoryPrice);
-        Console.WriteLine("Primary Storage:   " + primaryStorageName + "$" + primaryStoragePrice);
-        Console.WriteLine("Secondary Storage: " + secondaryStorageName + "$" + secondaryStoragePrice);
-        Console.WriteLine("Graphics Card:     " + graphicsCardName + "$" + graphicsCardPrice);
-        Console.WriteLine("Operating System:  " + OSname + "$" + OSprice);
+        Console.WriteLine("Primary Storage:    " + primaryStorageName + "$".PadLeft(9,' ') + primaryStoragePrice);
+        Console.WriteLine("Secondary Storage:  " + secondaryStorageName + "$".PadLeft(8, ' ') + secondaryStoragePrice);
+        Console.WriteLine("Graphics Card:      " + graphicsCardName + " $" + graphicsCardPrice);
+        Console.WriteLine("Operating System:   " + OSname + "  $" + OSprice);
         //Console.WriteLine("");
-        Console.WriteLine("".PadLeft(30,'-'));
-        Console.WriteLine("Total: " + cartPrice);
+        Console.WriteLine("".PadLeft(42,'-'));
+        Console.WriteLine("Total: $" + cartPrice);
     } else
     {
         Console.WriteLine("There is no cart to print!");
@@ -136,10 +140,10 @@ void EditOrder()
         {
             case CharOptions.a: DisplayProcessors(); break;
             case CharOptions.b: DisplayMemory(); break;
-            //case CharOptions.c:
-            //case CharOptions.d:
-            //case CharOptions.e:
-            //case CharOptions.f:
+            case CharOptions.c: DisplayPrimaryStorage(); break;
+            case CharOptions.d: DisplaySecondaryStorage(); break;
+            case CharOptions.e: DisplayGraphicsCard(); break;
+            case CharOptions.f: DisplayOperatingSystem(); break;
 
         }
     }
@@ -202,7 +206,7 @@ void DisplayProcessors ()
     Console.WriteLine("e) Intel i7-12700K   - $1400");
     Console.WriteLine("f) Intel i5-12600K   - $1280");
 
-    CharOptions choice = GetOption("Please choose a Processor", 6);
+    var choice = GetOption("Please choose a Processor", 6);
     
     switch (choice)
     {
@@ -225,7 +229,7 @@ void DisplayMemory()
     Console.WriteLine("d) 64 GB  - $410");
     Console.WriteLine("e) 128 GB - $600");
 
-    CharOptions choice = GetOption("Please choose the memory", 5);
+    var choice = GetOption("Please choose the Memory", 5);
 
     switch (choice)
     {
@@ -244,5 +248,80 @@ void DisplayPrimaryStorage()
     Console.WriteLine("b) SSD 512 GB - $100");
     Console.WriteLine("c) SSD 1 TB   - $125");
     Console.WriteLine("d) SSD 2 TB   - $230");
+
+    var choice = GetOption("Please choose the Primary Storage", 4);
+
+    switch (choice)
+    {
+        case CharOptions.a: primaryStorageName = "SSD 256 GB"; primaryStoragePrice = 90; break;
+        case CharOptions.b: primaryStorageName = "SSD 512 GB"; primaryStoragePrice = 100; break;
+        case CharOptions.c: primaryStorageName = "SSD 1 TB  "; primaryStoragePrice = 125; break;
+        case CharOptions.d: primaryStorageName = "SSD 2 TB  "; primaryStoragePrice = 230; break;
+    }
 }
 
+void DisplaySecondaryStorage()
+{
+    Console.WriteLine("a) None       - $0");
+    Console.WriteLine("b) HDD 1 TB   - $40");
+    Console.WriteLine("c) HDD 2 TB   - $50");
+    Console.WriteLine("d) HDD 4 TB   - $70");
+    Console.WriteLine("e) SSD 512 GB - $100");
+    Console.WriteLine("f) SSD 1 TB   - $125");
+    Console.WriteLine("g) SSD 2 TB   - $230");
+
+    var choice = GetOption("Please choose the Secondary Storage", 7);
+
+    switch (choice)
+    {
+        case CharOptions.a: secondaryStorageName = "None       "; secondaryStoragePrice = 0; break;
+        case CharOptions.b: secondaryStorageName = "HDD 1 TB   "; secondaryStoragePrice = 40; break;
+        case CharOptions.c: secondaryStorageName = "HDD 2 TB   "; secondaryStoragePrice = 50; break;
+        case CharOptions.d: secondaryStorageName = "HDD 4 TB   "; secondaryStoragePrice = 70; break;
+        case CharOptions.e: secondaryStorageName = "SSD 512 GB "; secondaryStoragePrice = 100; break;
+        case CharOptions.f: secondaryStorageName = "SSD 1 TB   "; secondaryStoragePrice = 125; break;
+        case CharOptions.g: secondaryStorageName = "SSD 2 TB   "; secondaryStoragePrice = 230; break;
+    }
+}
+
+void DisplayGraphicsCard()
+{
+    Console.WriteLine("a) None             - $0");
+    Console.WriteLine("b) GeForce RTX 3070 - $580");
+    Console.WriteLine("c) GeForce RTX 2070 - $400");
+    Console.WriteLine("d) Radeon RX 6600   - $300");
+    Console.WriteLine("e) Radeon RX 5600   - $325");
+
+    var choice = GetOption("Please choose a Graphics Card", 5);
+
+    switch (choice)
+    {
+        case CharOptions.a: graphicsCardName = "None             "; graphicsCardPrice = 0; break;
+        case CharOptions.b: graphicsCardName = "GeForce RTX 3070 "; graphicsCardPrice = 580; break;
+        case CharOptions.c: graphicsCardName = "GeForce RTX 2070 "; graphicsCardPrice = 400; break;
+        case CharOptions.d: graphicsCardName = "Radeon RX 6600   "; graphicsCardPrice = 300; break;
+        case CharOptions.e: graphicsCardName = "Radeon RX 5600   "; graphicsCardPrice = 325; break;
+    }
+}
+
+void DisplayOperatingSystem()
+{
+    Console.WriteLine("a) Windows 11 Home - $140");
+    Console.WriteLine("b) Windows 11 Pro  - $160");
+    Console.WriteLine("c) Windows 10 Home - $150");
+    Console.WriteLine("d) Windows 10 Pro  - $170");
+    Console.WriteLine("e) Linux (Fedora)  - $20");
+    Console.WriteLine("f) Linux (Red Hat) - $60");
+
+    var choice = GetOption("Please choose an Operating System",6);
+
+    switch (choice)
+    {
+        case CharOptions.a: OSname = "Windows 11 Home "; OSprice = 140; break;
+        case CharOptions.b: OSname = "Windows 11 Pro  "; OSprice = 160; break;
+        case CharOptions.c: OSname = "Windows 10 Home "; OSprice = 150; break;
+        case CharOptions.d: OSname = "Windows 10 Pro  "; OSprice = 170; break;
+        case CharOptions.e: OSname = "Linux (Fedora)  "; OSprice = 20; break;
+        case CharOptions.f: OSname = "Linux (Red Hat) "; OSprice = 60; break;
+    }
+}
