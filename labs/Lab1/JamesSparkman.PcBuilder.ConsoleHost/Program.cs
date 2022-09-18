@@ -73,7 +73,7 @@ MenuOption DisplayMenu()
     } while (true);
 }
 
-void StartOrder ()
+void StartOrder()
 {
     cartPrice = 0;
     DisplayProcessors();
@@ -85,7 +85,7 @@ void StartOrder ()
 
 }
 
-void PrintCart ()
+void PrintCart()
 {
     if (cartPrice != 0)
     {
@@ -142,7 +142,7 @@ void EditOrder()
     }
 }
 
-bool GetBool (string message)
+bool GetBool(string message)
 {
     Console.WriteLine(message);
 
@@ -157,7 +157,7 @@ bool GetBool (string message)
     } while (true);
 }
 
-CharOptions GetOption (string message, int options)
+CharOptions GetOption(string message, int options)
 {
     Console.WriteLine(message);
     CharOptions currentOption = CharOptions.z;
@@ -185,7 +185,7 @@ CharOptions GetOption (string message, int options)
     return currentOption;
 }
 
-void DisplayProcessors ()
+void DisplayProcessors()
 {
     Console.WriteLine("a) AMD Ryzen 9 5900X - $1410");
     Console.WriteLine("b) AMD Ryzen 7 5700X - $1270");
