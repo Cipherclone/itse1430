@@ -137,13 +137,15 @@ Movie AddMovie()
     Movie movie = new Movie();
 
     //movie.title = ReadString("Enter a title: ", true);
-    movie.SetTitle(ReadString("Enter a title: ", true));
-    movie._description = ReadString("Enter an optional desctription: ", false);
-    movie._runLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
-    movie._releaseYear = ReadInt32("Enter a release year: ", 1900, 2100);
-    movie._rating = ReadString("Enter a MPAA rating: ", true);
-    movie._isClassic = ReadBoolean("Is this a classic? ");
+    movie.Title = ReadString("Enter a title: ", true);
+    
+    movie.Description = ReadString("Enter an optional desctription: ", false);
+    movie.RunLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
+    movie.ReleaseYear = ReadInt32("Enter a release year: ", 1900, 2100);
+    movie.Rating = ReadString("Enter a MPAA rating: ", true);
+    movie.IsClassic = ReadBoolean("Is this a classic? ");
 
+    
     return movie;
 }
 
@@ -164,7 +166,7 @@ void DeleteMovie()
         return;
 
     // not confirmed
-    if (!ReadBoolean($"Are you sure you want to delete the movie '{selectedMovie.GetTitle()}' (Y/N)? "))
+    if (!ReadBoolean($"Are you sure you want to delete the movie '{selectedMovie.Title}' (Y/N)? "))
         return;
 
     //TODO Delete Movie
@@ -196,12 +198,14 @@ void ViewMovie( Movie movie)
     
     //Console.WriteLine(releaseYear);
 
-    Console.WriteLine($"{movie.GetTitle()} ({movie._releaseYear})");
-    Console.WriteLine($"Length: {movie._runLength} mins");
+    Console.WriteLine($"{movie.Title} ({movie.ReleaseYear})");
+    Console.WriteLine($"Length: {movie.RunLength} mins");
     //Console.WriteLine("MPAA Rating: " + rating);
-    Console.WriteLine($"Rated {movie._rating}");
+    Console.WriteLine($"Rated {movie.Rating}");
     //Console.WriteLine($"This {(isClassic ? "Is" : "Is Not")} a Classic");
-    Console.WriteLine($"Is Classic: {(movie._isClassic ? "Yes" : "No")}");
-    Console.WriteLine(movie._description);
+    Console.WriteLine($"Is Classic: {(movie.IsClassic ? "Yes" : "No")}");
+    Console.WriteLine(movie.Description);
+
+    var blackAndWhite = movie.IsBlackAndWhite;
 
 }

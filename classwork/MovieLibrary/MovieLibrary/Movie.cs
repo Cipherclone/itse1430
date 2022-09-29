@@ -6,27 +6,66 @@
     /// </summary>
     public class Movie
     {
-        private string _title = "";
-
-        public string GetTitle()
+        public int Id { get; private set; }
+        
+        /// <summary> Gets or sets the title. </summary>
+        public string Title
         {
-            return _title;
-        }
-        public void SetTitle(string title)
-        {
-            _title = title;
+            get { return String.IsNullOrEmpty(_title) ? "" : _title; }
+            set { _title = String.IsNullOrEmpty(value) ? "" : value.Trim(); }
         }
 
-        public string _description = "";
-        public int _runLength = 0; // in minutes
-        public int _releaseYear = 1900;
-        public string _rating = "";
-        public bool _isClassic = false;
+        //public string GetTitle()
+        //{
+        //    return _title;
+        //}
+        //public void SetTitle(string title)
+        //{
+        //    _title = title;
+        //}
 
-        public bool _isBlackAndWhite ()
+        public string Description
         {
-            return _releaseYear < 1939;
+            get { return String.IsNullOrEmpty(_description) ? "" : _description; }
+            set { _description = String.IsNullOrEmpty(value) ? "" : value.Trim(); }
+
         }
+
+        /// <summary> Gets or sets the run length in minutes. </summary>
+        //public int RunLength
+        //{
+        //    get { return _runLength;  }
+        //    set { _runLength = value; }
+        //}
+        public int RunLength { get; set; }
+
+        public int ReleaseYear { get; set; } = 1900;
+
+        public string Rating
+        {
+            get { return String.IsNullOrEmpty(_rating) ? "" : _rating; }
+            set { _rating = String.IsNullOrEmpty(value) ? "" : value.Trim(); }
+        }
+
+        public bool IsClassic { get; set; } = false;
+        
+        public bool IsBlackAndWhite
+        {
+            get { return ReleaseYear < 1939; }
+            set { }
+        }
+        
+        private string _title;
+        private string _description;
+        //private int _runLength = 0; // in minutes
+        //private int _releaseYear = 1900;
+        private string _rating;
+        //private bool _isClassic = false;
+
+        //public bool _isBlackAndWhite ()
+        //{
+        //    return _releaseYear < 1939;
+        //}
 
         
         /// <summary>Clones the existing movie.</summary>
@@ -46,10 +85,10 @@
             
             movie._title = _title;
             movie._description = _description;
-            movie._runLength = _runLength;
-            movie._releaseYear = _releaseYear;
+            movie.RunLength = RunLength;
+            movie.ReleaseYear = ReleaseYear;
             movie._rating = _rating;
-            movie._isClassic = _isClassic;
+            movie.IsClassic = IsClassic;
         }
 
     }
