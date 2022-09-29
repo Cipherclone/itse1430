@@ -6,6 +6,26 @@
     /// </summary>
     public class Movie
     {
+        // no return type
+
+        public Movie () : this("", "") {}
+        
+        public Movie(string title, string description)
+        {
+            Title = title;
+            Description = description;
+        }
+        
+        public Movie(string title) : this(title, "")
+        {
+            Title = title;
+        }
+
+        //private void Initialize( string title, string description) DONT DO THISSSS
+        //{
+        //    Title = title;
+        //    Description=description;
+        //}
         public int Id { get; private set; }
         
         /// <summary> Gets or sets the title. </summary>
@@ -51,9 +71,11 @@
         
         public bool IsBlackAndWhite
         {
-            get { return ReleaseYear < 1939; }
+            get { return ReleaseYear < YearColorWasIntroduced; }
             set { }
         }
+
+        public const int YearColorWasIntroduced = 1939;
         
         private string _title;
         private string _description;
@@ -72,7 +94,7 @@
         /// <returns>A copy of the movie.</returns>
         public Movie Clone()
         {
-            var movie = new Movie();
+            var movie = new Movie("Title");
             CopyTo(movie);
 
             return movie;
@@ -89,6 +111,14 @@
             movie.ReleaseYear = ReleaseYear;
             movie._rating = _rating;
             movie.IsClassic = IsClassic;
+        }
+
+
+        public override string ToString()
+        {
+
+
+            return Title;
         }
 
     }

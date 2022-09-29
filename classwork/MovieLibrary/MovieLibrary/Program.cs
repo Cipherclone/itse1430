@@ -136,9 +136,9 @@ int ReadInt32(string message, int mininmumValue, int maximumValue)
 
 Movie AddMovie()
 {
-    Movie movie = new Movie();
+    Movie movie = new Movie("Title");
 
-    //movie.title = ReadString("Enter a title: ", true);
+    //movie.title = ReadString("Enter a title: , true);
     movie.Title = ReadString("Enter a title: ", true);
     
     movie.Description = ReadString("Enter an optional desctription: ", false);
