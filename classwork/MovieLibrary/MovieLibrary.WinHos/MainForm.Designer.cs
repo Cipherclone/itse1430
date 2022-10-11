@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this._mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._miFileExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,15 +39,6 @@
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this._mainMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(158, 163);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // _mainMenu
             // 
@@ -74,7 +64,7 @@
             // _miFileExit
             // 
             this._miFileExit.Name = "_miFileExit";
-            this._miFileExit.Size = new System.Drawing.Size(224, 26);
+            this._miFileExit.Size = new System.Drawing.Size(116, 26);
             this._miFileExit.Text = "E&xit";
             // 
             // moviesToolStripMenuItem
@@ -120,7 +110,7 @@
             // 
             this._miHelpAbout.Name = "_miHelpAbout";
             this._miHelpAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this._miHelpAbout.Size = new System.Drawing.Size(224, 26);
+            this._miHelpAbout.Size = new System.Drawing.Size(157, 26);
             this._miHelpAbout.Text = "&About";
             // 
             // MainForm
@@ -128,7 +118,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this._mainMenu);
             this.MainMenuStrip = this._mainMenu;
             this.Name = "MainForm";
@@ -141,8 +130,6 @@
         }
 
         #endregion
-
-        private Button button1;
         private MenuStrip _mainMenu;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem _miFileExit;
