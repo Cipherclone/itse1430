@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.ConsoleHost", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary", "MovieLibrary\MovieLibrary.csproj", "{6B0FDA3E-8943-4617-823B-6E0634BE55E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.WinHos", "MovieLibrary.WinHos\MovieLibrary.WinHos.csproj", "{536BA8BB-C268-4E69-9AC2-396BBBD529A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.WinHos", "MovieLibrary.WinHos\MovieLibrary.WinHos.csproj", "{536BA8BB-C268-4E69-9AC2-396BBBD529A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

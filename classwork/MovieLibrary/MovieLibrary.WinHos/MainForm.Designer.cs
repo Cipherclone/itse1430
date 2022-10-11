@@ -37,6 +37,7 @@
             this._miMovieDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this._lstMovies = new System.Windows.Forms.ListBox();
             this._mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +98,7 @@
             this._miMovieDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this._miMovieDelete.Size = new System.Drawing.Size(224, 26);
             this._miMovieDelete.Text = "&Delete";
+            this._miMovieDelete.Click += new System.EventHandler(this._miMovieDelete_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -113,11 +115,21 @@
             this._miHelpAbout.Size = new System.Drawing.Size(157, 26);
             this._miHelpAbout.Text = "&About";
             // 
+            // _lstMovies
+            // 
+            this._lstMovies.FormattingEnabled = true;
+            this._lstMovies.ItemHeight = 20;
+            this._lstMovies.Location = new System.Drawing.Point(12, 31);
+            this._lstMovies.Name = "_lstMovies";
+            this._lstMovies.Size = new System.Drawing.Size(776, 404);
+            this._lstMovies.TabIndex = 2;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this._lstMovies);
             this.Controls.Add(this._mainMenu);
             this.MainMenuStrip = this._mainMenu;
             this.Name = "MainForm";
@@ -139,5 +151,6 @@
         private ToolStripMenuItem _miMovieDelete;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem _miHelpAbout;
+        private ListBox _lstMovies;
     }
 }
