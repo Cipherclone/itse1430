@@ -1,10 +1,16 @@
-﻿
+﻿//Movie definition
+
+
+
+
+/// Functions
+/// 
+
 enum MenuOption
 {
     View = 1,
-    Add, //assumes the next based on the first!
+    Add,
     Edit,
     Delete,
     Quit,
-    
 }

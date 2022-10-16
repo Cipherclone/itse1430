@@ -8,16 +8,17 @@ namespace MovieLibrary
 {
     public class MovieDatabase
     {
-        public Movie Add (Movie movie)
+        public virtual Movie Add ( Movie movie )
         {
             _movie = movie;
             return movie;
         }
 
-        public Movie Get (int id)
+        public Movie Get ( int id )
         {
             if (_movie != null && _movie.Id == id)
                 return _movie;
+
             return null;
         }
 

@@ -1,4 +1,4 @@
-namespace MovieLibrary.WinHos
+namespace MovieLibrary.WinHost
 {
     internal static class Program
     {

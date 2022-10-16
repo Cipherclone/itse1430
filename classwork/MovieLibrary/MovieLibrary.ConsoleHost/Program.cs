@@ -1,4 +1,5 @@
-﻿using MovieLibrary;
+﻿//namespace MovieLibrary.ConsoleHost
+using MovieLibrary;
 
 DisplayInformation();
 
@@ -12,7 +13,7 @@ do
     var input = DisplayMenu();   //MenuOption input = DisplayMenu();
     Console.WriteLine();
     switch (input)
-    {
+    {    
         case MenuOption.Add:
         {
             var theMovie = AddMovie();
@@ -88,8 +89,7 @@ bool ReadBoolean ( string message )
     Console.Write(message);
 
     //Looking for Y/N
-    do
-    {
+    do { 
         ConsoleKeyInfo key = Console.ReadKey();
         if (key.Key == ConsoleKey.Y)
             return true;
@@ -111,7 +111,7 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
         //if (Int32.TryParse(value, out result))
         //if (Int32.TryParse(value, out int result))
         if (Int32.TryParse(value, out var result))
-        {
+            {
             if (result >= minimumValue && result <= maximumValue)
                 return result;
         };
@@ -120,8 +120,8 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
         //Int32.MaxValue;
 
         //if (false)
-        //break;  //Exit loop
-        //continue; //Exit iteration
+            //break;  //Exit loop
+            //continue; //Exit iteration
 
         Console.WriteLine("Value must be between " + minimumValue + " and " + maximumValue);
     } while (true);
@@ -154,8 +154,8 @@ Movie AddMovie ()
     //string title = "";
     //movie.title = ReadString("Enter a title: ", true);
     //movie.SetTitle(ReadString("Enter a title: ", true));
-    movie.Title = ReadString("Enter a title: ", true);
-
+    movie.Title = ReadString("Enter a title: ", true);    
+    
     //string description = "";
     movie.Description = ReadString("Enter an optional description: ", false);
 
@@ -173,11 +173,11 @@ Movie AddMovie ()
     movie.Rating = ReadString("Entering MPAA rating: ", true);
 
     movie.IsClassic = ReadBoolean("Is this a classic? ");
-
+    
     return movie;
 }
 
-Movie GetSelectedMovie ()
+Movie GetSelectedMovie()
 {
     //HACK: For now
     var item = database.Get(0);
