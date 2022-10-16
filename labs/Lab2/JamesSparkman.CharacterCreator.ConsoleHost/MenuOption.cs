@@ -5,7 +5,7 @@ James Sparkman
 */
 enum MenuOption
 {
-    Quit = 1, // TODO add more options when needed
+    Quit = 1,
     CreateCharacter,
     ViewCharacter,
     EditCharacter,
