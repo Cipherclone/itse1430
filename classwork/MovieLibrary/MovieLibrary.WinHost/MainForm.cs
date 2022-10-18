@@ -104,5 +104,11 @@ namespace MovieLibrary.WinHost
             _movie = child.SelectedMovie;
             UpdateUI();
         }
+
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var about = new AboutForm();
+            about.ShowDialog();
+        }
     }
 }
