@@ -6,6 +6,8 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Company>James Sparkman</Company>
+    <Product>Movie Library</Product>
   </PropertyGroup>
 
   <ItemGroup>
