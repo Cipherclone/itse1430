@@ -27,6 +27,8 @@ namespace MovieLibrary.WinHost
         {
             base.OnLoad(e);
 
+            
+
             //Do any init just before UI is rendered
             if (SelectedMovie != null)
             { 
@@ -40,10 +42,17 @@ namespace MovieLibrary.WinHost
                 _txtReleaseYear.Text = SelectedMovie.ReleaseYear.ToString();
             };
 
+            //force validation
+            ValidateChildren();
+
         }
 
         private void OnSave ( object sender, EventArgs e )
         {
+            //force validation of children
+            if (!ValidateChildren())
+                return;
+
             var btn = sender as Button;
 
             //TODO: Add validation
@@ -85,5 +94,71 @@ namespace MovieLibrary.WinHost
             return -1;
         }
         #endregion
+
+        private void OnValidateTitle ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                // not valid
+                _errors.SetError(control, "Title is required");
+                e.Cancel = true;
+            } else
+            {
+                // valid
+                _errors.SetError(control, "");
+            };
+        }
+
+        private void OnValidateRating ( object sender, CancelEventArgs e )
+        {
+            var control = sender as ComboBox;
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                // not valid
+                _errors.SetError(control, "Rating is required");
+                e.Cancel = true;
+            } else
+            {
+                // valid
+                _errors.SetError(control, "");
+            };
+        }
+
+        private void OnValidateReleaseYear ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetInt32(control);
+            if (value < 1900)
+            {
+                // not valid
+                _errors.SetError(control, "Release Year must be at least 1900");
+                e.Cancel = true;
+            } else
+            {
+                // valid
+                _errors.SetError(control, "");
+            };
+        }
+
+        private void OnValidateRunLength ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            var value = GetInt32(control);
+            if (value < 0)
+            {
+                // not valid
+                _errors.SetError(control, "Run Length must be >= 0");
+                e.Cancel = true;
+            } else
+            {
+                // valid
+                _errors.SetError(control, "");
+            };
+        }
+
+
     }
 }

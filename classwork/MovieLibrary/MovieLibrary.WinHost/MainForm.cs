@@ -26,6 +26,7 @@ namespace MovieLibrary.WinHost
         }
 
         private Movie _movie;
+        private MovieDatabase _movies = new MovieDatabase();
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
@@ -62,12 +63,11 @@ namespace MovieLibrary.WinHost
         private void UpdateUI ()
         {
             //TODO: Get movies
+            var movies = _movies.GetAll();
 
             _lstMovies.Items.Clear();
-            if (_movie != null)
-            {
-                _lstMovies.Items.Add(_movie);
-            };
+
+            _lstMovies.Items.AddRange(movies);
         }
 
         private Movie GetSelectedMovie ()
