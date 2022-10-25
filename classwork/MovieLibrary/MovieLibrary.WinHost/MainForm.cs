@@ -14,15 +14,24 @@ namespace MovieLibrary.WinHost
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             var child = new MovieForm();
+            do
+            {
 
-            //Showing form modally
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-            //child.Show();
 
-            //TODO: Save this off
-            _movie = child.SelectedMovie;
-            UpdateUI();
+                //Showing form modally
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+                //child.Show();
+
+                if (_movies.Add(child.SelectedMovie, out var error) != null)
+                {
+                    UpdateUI();
+                    return;
+                };
+
+                
+                DisplayError(error, "Add Failed");
+            } while (true);
         }
 
         private Movie _movie;
@@ -38,7 +47,7 @@ namespace MovieLibrary.WinHost
                 return;
 
             //TODO: Implement Delete
-            _movie = null;
+            _movies.Remove(movie.Id);
             UpdateUI();
         }
 
@@ -96,13 +105,18 @@ namespace MovieLibrary.WinHost
 
             var child = new MovieForm();
             child.SelectedMovie = movie;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-
-            //TODO: Save this off
-            _movie = child.SelectedMovie;
-            UpdateUI();
+                //TODO: Save this off
+                if (_movies.Update(movie.Id, child.SelectedMovie, out var error)) {
+                    UpdateUI();
+                    return;
+                };
+                
+            } while (true);
         }
 
         private void OnHelpAbout ( object sender, EventArgs e )
