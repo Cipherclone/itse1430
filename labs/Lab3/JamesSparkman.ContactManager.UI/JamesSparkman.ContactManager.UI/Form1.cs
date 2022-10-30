@@ -12,5 +12,10 @@ namespace JamesSparkman.ContactManager.UI
             var about = new AboutForm();
             about.ShowDialog(this);
         }
+
+        private void OnFormClosing ( object sender, EventArgs e )
+        {
+            // figure this out
+        }
     }
 }
