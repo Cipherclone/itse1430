@@ -6,5 +6,11 @@ namespace JamesSparkman.ContactManager.UI
         {
             InitializeComponent();
         }
+
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var about = new AboutForm();
+            about.ShowDialog(this);
+        }
     }
 }

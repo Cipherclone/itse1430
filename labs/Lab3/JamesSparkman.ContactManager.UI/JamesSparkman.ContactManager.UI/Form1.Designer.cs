@@ -75,6 +75,7 @@
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnHelpAbout);
             // 
             // Form1
             // 
@@ -84,7 +85,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "James Sparkman Contact Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
