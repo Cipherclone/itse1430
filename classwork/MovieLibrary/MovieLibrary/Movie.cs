@@ -1,27 +1,37 @@
-﻿namespace MovieLibrary
+﻿/*
+ * Name
+ * Lab
+ * Fall 2022
+ */
+using System.ComponentModel.DataAnnotations;
+
+namespace MovieLibrary
 {    
     /// <summary>Represents a movie.</summary>
-    public class Movie
+    public class Movie : IValidatableObject
     {
+        #region Construction
+
+        /// <summary>Initializes an instance of the <see cref="Movie"/> class.</summary>
         public Movie () : this("", "")
         {
-            //Initialize("", "");
         }
 
+        /// <summary>Initializes an instance of the <see cref="Movie"/> class.</summary>
+        /// <param name="title">The title.</param>
         public Movie ( string title ) : this(title, "")
         {
-            //Init that field initializers cannot do
-            //Title = title;
-            //Initialize(title, "");
-        }        
+        }
 
+        /// <summary>Initializes an instance of the <see cref="Movie"/> class.</summary>
+        /// <param name="title">The title.</param>
+        /// <param name="description">The description.</param>
         public Movie ( string title, string description ) : base() // Object.ctor()
         {
-            //Initialize(title, description);
-
             Title = title;
             Description = description;
         }
+        #endregion
 
         /// <summary>Gets the unique ID.</summary>
         public int Id { get; set; }
@@ -92,37 +102,30 @@
             movie.Rating = Rating;
             movie.IsClassic = IsClassic;            
         }
-
-        public bool Validate ( out string errorMessage )
-        {
-            if (Title.Length == 0)
-            {
-                errorMessage = "Title is required";
-                return false;
-            };
-            if (Rating.Length == 0)
-            {
-                errorMessage = "Rating is required";
-                return false;
-            };
-            if (RunLength <= 0)
-            {
-                errorMessage = "Run Length must be > 0";
-                return false;
-            };
-            if (ReleaseYear < 1900)
-            {
-                errorMessage = "Release Year must be >= 1900";
-                return false;
-            };
-
-            errorMessage = null;
-            return true;
-        }
-
+        
+        /// <inheritdoc />
         public override string ToString ()
         {            
             return Title;
+        }
+
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
+        {
+            var errors = new List<ValidationResult>();
+
+            if (Title.Length == 0)
+                errors.Add(new ValidationResult("Title is required", new[] { nameof(Title) } ));
+
+            if (Rating.Length == 0)
+                errors.Add(new ValidationResult("Rating is required", new[] { nameof(Rating) }));
+                
+            if (RunLength <= 0)
+                errors.Add(new ValidationResult("Run Length must be > 0", new[] { nameof(RunLength) }));
+
+            if (ReleaseYear < 1900)
+                errors.Add(new ValidationResult("Release Year must be >= 1900", new[] { nameof (ReleaseYear) }));
+
+            return errors;
         }
     }
 }
