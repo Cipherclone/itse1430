@@ -9,7 +9,13 @@ namespace MovieLibrary.WinHost
             InitializeComponent();
         }
         #endregion
-        
+
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad ( e );
+            UpdateUI();
+        }
+
         //Called to handle Movies\Add
         private void OnMovieAdd ( object sender, EventArgs e )
         {
@@ -81,7 +87,7 @@ namespace MovieLibrary.WinHost
 
         private Movie GetSelectedMovie ()
         {
-            return _movie;
+            return _lstMovies.SelectedItem as Movie;
         }
 
         private bool Confirm ( string message, string title )

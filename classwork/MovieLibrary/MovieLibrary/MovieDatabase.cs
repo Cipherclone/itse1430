@@ -8,6 +8,27 @@ namespace MovieLibrary
 {
     public class MovieDatabase
     {
+        // todo seed
+        public MovieDatabase ()
+        {
+            //var movie = new Movie();
+            //movie.Title = "Jaws";
+            //movie.Rating = "R";
+            //movie.RunLength = 120;
+            //movie.ReleaseYear = 1977;
+            //movie.IsClassic = true;
+            //Add(movie, out var error);
+            var movie = new Movie() {
+                Title = "Jaws",
+                Rating = "R",
+                RunLength = 120,
+                ReleaseYear = 1977,
+                IsClassic = true,
+            };
+
+            Add(movie, out var error);
+        }
+    
         public virtual Movie Add ( Movie movie, out string errorMessage)
         {
             //var numberOfElements = _movies.Length;
