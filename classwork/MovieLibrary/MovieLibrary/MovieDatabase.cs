@@ -29,7 +29,7 @@ namespace MovieLibrary
 
             //Use IValidatableObject Luke...
             //if (!movie.Validate(out errorMessage))
-            if (!new ObjectValidator().IsValid(movie, out errorMessage))
+            if (!ObjectValidator.IsValid(movie, out errorMessage))
                 return null;
 
             //Must be unique
@@ -135,7 +135,7 @@ namespace MovieLibrary
                 return false;
             };
             //if (!movie.Validate(out errorMessage))
-            if (!new ObjectValidator().IsValid(movie, out errorMessage))
+            if (!ObjectValidator.IsValid(movie, out errorMessage))
                 return false;
 
             //Movie must already exist

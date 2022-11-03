@@ -30,7 +30,7 @@ namespace MovieLibrary.WinHost
         {
             base.OnLoad(e);
 
-            UpdateUI();
+            UpdateUI(true);
         }
 
         #region Event Handlers
@@ -110,16 +110,46 @@ namespace MovieLibrary.WinHost
 
         private void UpdateUI ()
         {
+            UpdateUI(false);
+        }
+
+        private void UpdateUI ( bool initialLoad)
+        {
             //Get movies
-            var movies = _movies.GetAll();            
+            var movies = _movies.GetAll();
+            
+            //if (initialLoad && movies.Count() == 0)
+            if (initialLoad && movies.Any())
+            {
+                if (Confirm("Do you want to seed some movies?", "Database Empty!"))
+                {
+                    _movies.Seed();
+                    movies = _movies.GetAll();
+                };
+            };
 
             _lstMovies.Items.Clear();
-            foreach (var movie in movies)
-                _lstMovies.Items.Add(movie);
+
+            var items = movies.OrderBy(OrderByTitle).ThenBy(OrderByReleaseYear).ToArray();
+
+            _lstMovies.Items.AddRange(items);
+            //foreach (var movie in movies)
+            //    _lstMovies.Items.Add(movie);
+        }
+
+        private string OrderByTitle (Movie movie)
+        {
+            return movie.Title;
+        }
+
+        private int OrderByReleaseYear (Movie movie)
+        {
+            return movie.ReleaseYear;
         }
 
         private Movie GetSelectedMovie ()
         {
+            //IEnumerable<Movie> temp = _lstMovies.SelectedItems.OfType<Movie>();
             return _lstMovies.SelectedItem as Movie;
         }
 
