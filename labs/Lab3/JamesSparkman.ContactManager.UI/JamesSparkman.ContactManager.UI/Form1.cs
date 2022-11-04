@@ -22,7 +22,7 @@ namespace JamesSparkman.ContactManager.UI
         public void OnFormClosing ( object sender, EventArgs e )
         {
             // figure this out
-            
+            Close();
         }
     }
 }
