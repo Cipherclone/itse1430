@@ -16,8 +16,10 @@ namespace JamesSparkman.ContactManager.Library
         {
             
         }
-
         #endregion
+        
+        /// <summary>Gets the unique ID.</summary>
+        public string Id { get; set; }
 
         /// <summary>Optional First Name</summary>
         public string FirstName 
