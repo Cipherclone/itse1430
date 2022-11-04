@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JamesSparkman.ContactManager.Library
 {
-    public abstract class ContactDatabase : IContactDatabase
+    public class ContactDatabase : IContactDatabase
     {
         /// <summary>Adds a Contact to the database</summary>
         /// <param name="contact">Contact to add</param>

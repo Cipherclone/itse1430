@@ -24,5 +24,15 @@ namespace JamesSparkman.ContactManager.UI
             // figure this out
             Close();
         }
+
+        #region Private Members
+
+        private void UpdateUI (bool initialLoad)
+        {
+            
+        }
+
+        // cant get the contact dependencies working properly :c
+        #endregion
     }
 }
