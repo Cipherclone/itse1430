@@ -15,6 +15,10 @@ namespace JamesSparkman.ContactManager.Library
 {
     public static class ObjectValidator
     {
+        /// <summary>Tests if an object is Valid.</summary>
+        /// <param name="instance">Object to validate</param>
+        /// <param name="errorMessage">Error Message, if any</param>
+        /// <returns></returns>
         public static bool IsValid (IValidatableObject instance, out string errorMessage)
         {
             var results = new List<ValidationResult>();

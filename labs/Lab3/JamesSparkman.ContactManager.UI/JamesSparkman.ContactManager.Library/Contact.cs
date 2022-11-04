@@ -19,7 +19,7 @@ namespace JamesSparkman.ContactManager.Library
         #endregion
         
         /// <summary>Gets the unique ID.</summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>Optional First Name</summary>
         public string FirstName 
@@ -62,6 +62,27 @@ namespace JamesSparkman.ContactManager.Library
         public bool IsValidEmail(string source)
         {
             return System.Net.Mail.MailAddress.TryCreate(source, out var address);
+        }
+
+        /// <summary>Clones a Contact Object</summary>
+        /// <returns>copy of the original Contact</returns>
+        public Contact Clone ()
+        {
+            var contact = new Contact();
+            CopyTo(contact);
+            return contact;
+        }
+
+        /// <summary>Passes on data from this contact to another</summary>
+        /// <param name="contact">Contact to copy to</param>
+        public void CopyTo (Contact contact)
+        {
+            contact.Id = Id;
+            contact.FirstName = FirstName;
+            contact.LastName = LastName;
+            contact.Email = Email;
+            contact.Notes = Notes;
+            contact.IsFavorite = IsFavorite;
         }
 
         /// <summary>
