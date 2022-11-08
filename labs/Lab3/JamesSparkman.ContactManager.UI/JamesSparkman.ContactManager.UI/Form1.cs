@@ -48,5 +48,12 @@ namespace JamesSparkman.ContactManager.UI
 
         private IContactDatabase _contacts = new ContactDatabase();
         #endregion
+
+        private void OnContactAdd ( object sender, EventArgs e )
+        {
+            var child = new ContactForm();
+
+           
+        }
     }
 }
