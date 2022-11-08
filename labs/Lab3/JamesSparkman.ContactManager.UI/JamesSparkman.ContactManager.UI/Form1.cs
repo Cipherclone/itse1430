@@ -15,6 +15,13 @@ namespace JamesSparkman.ContactManager.UI
             InitializeComponent();
         }
 
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad ( e );
+
+            UpdateUI(true);
+        }
+
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var about = new AboutForm();
@@ -31,10 +38,15 @@ namespace JamesSparkman.ContactManager.UI
 
         private void UpdateUI (bool initialLoad)
         {
-            
+            var contacts = _contacts.GetAll();
+
+            _lstContacts.Items.Clear();
+
+            var items = contacts.ToArray();
+            _lstContacts.Items.AddRange(items);
         }
 
-        // cant get the contact dependencies working properly :c
+        private IContactDatabase _contacts = new ContactDatabase();
         #endregion
     }
 }
