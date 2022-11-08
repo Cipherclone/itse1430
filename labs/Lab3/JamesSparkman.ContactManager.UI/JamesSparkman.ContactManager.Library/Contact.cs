@@ -5,6 +5,7 @@
  */
 using System.ComponentModel.DataAnnotations;
 
+
 namespace JamesSparkman.ContactManager.Library
 {
     /// <summary>Represents a Contact</summary>

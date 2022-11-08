@@ -4,6 +4,8 @@
  * Fall 2022
  */
 
+using JamesSparkman.ContactManager.Library;
+
 namespace JamesSparkman.ContactManager.UI
 {
     public partial class Form1 : Form
@@ -24,7 +26,7 @@ namespace JamesSparkman.ContactManager.UI
             // figure this out
             Close();
         }
-
+        
         #region Private Members
 
         private void UpdateUI (bool initialLoad)
