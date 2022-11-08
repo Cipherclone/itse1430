@@ -39,7 +39,7 @@ namespace MovieLibrary
         /// <summary>Gets or sets the title.</summary>
         public string Title
         {
-            get { return _title ?? ""; }  
+            get => _title ?? "";
             set { _title = value?.Trim() ?? ""; }
         }
         private string _title;
@@ -47,7 +47,7 @@ namespace MovieLibrary
         /// <summary>Gets or sets the description.</summary>
         public string Description
         {
-            get { return _description ?? ""; }
+            get => _description ?? "";
             set { _description = value?.Trim() ?? ""; }
         }         
         private string _description;

@@ -130,7 +130,8 @@ namespace MovieLibrary.WinHost
 
             _lstMovies.Items.Clear();
 
-            var items = movies.OrderBy(OrderByTitle).ThenBy(OrderByReleaseYear).ToArray();
+            var items = movies.OrderBy(x => x.Title).ThenBy(x => x.ReleaseYear).ToArray();
+            //var items = movies.OrderBy(OrderByTitle).ThenBy(OrderByReleaseYear).ToArray();
 
             _lstMovies.Items.AddRange(items);
             //foreach (var movie in movies)

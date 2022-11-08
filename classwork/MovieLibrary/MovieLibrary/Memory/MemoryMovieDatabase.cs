@@ -21,33 +21,48 @@ namespace MovieLibrary.Memory
 
         protected override Movie GetCore ( int id )
         {
-            foreach (var movie in _movies)
-                if (movie?.Id == id)
-                    return movie.Clone();  //Clone because of ref type
+            return _movies.FirstOrDefault( x => x.Id == id )?.Clone(); 
 
-            return null;
+            //foreach (var movie in _movies)
+            //    if (movie?.Id == id)
+            //        return movie.Clone();  //Clone because of ref type
+
+            //return null;
         }
 
         protected override IEnumerable<Movie> GetAllCore ()
         {
+            return _movies.Select( x => x.Clone() );
 
-            foreach (var movie in _movies)
-            {
-                //items.Add(movie.Clone());
-                yield return movie.Clone(); // the yield makes it an iterator!
-            }
+            // LINQ syntax
+            //  from tempVar in IEnumerable<T>
+            //  where <condition>
+            //  orderby
+            //  select
+            //return from movie in _movies
+                // ~~where movie.Id > 10~~ // OPTIONAL
+                //orderby movie.Title, movie.ReleaseYear // OPTIONAL
+                //select movie.Clone();
+
+            //foreach (var movie in _movies)
+            //{
+            //    //items.Add(movie.Clone());
+            //    yield return movie.Clone(); // the yield makes it an iterator!
+            //}
         }
 
         protected override void RemoveCore ( int id )
         {
+            var movie = FindById(id);
+            _movies.Remove( movie );
             //Enumerate array looking for match
-            for (var index = 0; index < _movies.Count; ++index)
-                if (_movies[index]?.Id == id)
-                {
-                    //_movies[index] = null;
-                    _movies.RemoveAt(index);
-                    return;
-                };
+            //for (var index = 0; index < _movies.Count; ++index)
+            //    if (_movies[index]?.Id == id)
+            //    {
+            //        //_movies[index] = null;
+            //        _movies.RemoveAt(index);
+            //        return;
+            //    };
         }
 
         protected override void UpdateCore ( int id, Movie movie)
@@ -62,20 +77,30 @@ namespace MovieLibrary.Memory
 
         private Movie FindById ( int id )
         {
-            foreach (var movie in _movies)
-                if (movie.Id == id)
-                    return movie;
+            //return _movies.FirstOrDefault(FilterById);
+            //foreach (var movie in _movies)
+            //    if (movie.Id == id)
+            //        return movie;
 
-            return null;
+            //return null;
+            return _movies.FirstOrDefault(x => x.Id == id);
         }
+
+        ////private bool FilterById ( Movie movie )
+        ////{
+        ////    return true;
+        ////}
 
         protected override Movie FindByTitle ( string title )
         {
-            foreach (var movie in _movies)
-                if (String.Equals(movie.Title, title, StringComparison.OrdinalIgnoreCase))
-                    return movie;
+            return _movies.FirstOrDefault(x => String.Equals(x.Title, title, StringComparison.OrdinalIgnoreCase));
+            
+            
+            //foreach (var movie in _movies)
+            //    if (String.Equals(movie.Title, title, StringComparison.OrdinalIgnoreCase))
+            //        return movie;
 
-            return null;
+            //return null;
         }
 
         private int _id = 1;
