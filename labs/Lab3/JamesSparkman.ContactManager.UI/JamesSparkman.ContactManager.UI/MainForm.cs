@@ -11,10 +11,10 @@ using JamesSparkman.ContactManager.Library;
 
 namespace JamesSparkman.ContactManager.UI
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         #region Construction
-        public Form1 ()
+        public MainForm ()
         {
             InitializeComponent();
         }
@@ -85,7 +85,7 @@ namespace JamesSparkman.ContactManager.UI
             if (contact == null)
                 return;
 
-            if (!Confirm($"Are you sure you want to delete '{contact.FirstName}'?", "Delete"))
+            if (!Confirm($"Are you sure you want to delete '{contact.FirstName} {contact.LastName}' ?", "Delete"))
                 return;
 
             _contacts.Remove(contact.Id);

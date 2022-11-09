@@ -89,7 +89,11 @@ namespace JamesSparkman.ContactManager.Library
         ///<inheritdoc />
         public override string ToString ()
         {
-            return Email;
+            string result = "";
+
+            result = LastName + ", " + FirstName + " (" + Email + ")";
+            
+            return result;
         }
 
 

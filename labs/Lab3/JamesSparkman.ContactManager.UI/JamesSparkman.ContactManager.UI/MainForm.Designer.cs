@@ -1,6 +1,6 @@
 ﻿namespace JamesSparkman.ContactManager.UI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -96,6 +96,7 @@
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnContactDelete);
@@ -125,7 +126,7 @@
             this._lstContacts.Size = new System.Drawing.Size(776, 409);
             this._lstContacts.TabIndex = 1;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -133,7 +134,7 @@
             this.Controls.Add(this._lstContacts);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "James Sparkman Contact Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

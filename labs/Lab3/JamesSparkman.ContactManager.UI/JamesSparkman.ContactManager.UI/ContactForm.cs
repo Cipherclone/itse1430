@@ -74,6 +74,12 @@ namespace JamesSparkman.ContactManager.UI
             Close();
         }
 
+        /// <summary>Cancels changes.</summary>
+        private void OnCancel ( object sender, EventArgs e )
+        {
+            Close();
+        }
+
         #region Private Members
 
         /// <summary>Shows an error message on screen.</summary>
@@ -85,5 +91,7 @@ namespace JamesSparkman.ContactManager.UI
         }
 
         #endregion
+
+        
     }
 }
