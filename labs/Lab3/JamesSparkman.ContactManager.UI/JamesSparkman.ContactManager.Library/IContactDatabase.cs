@@ -23,5 +23,7 @@ namespace JamesSparkman.ContactManager.Library
         void Remove ( int id );
 
         bool Update ( int id, Contact contact, out string errorMessage );
+
+        void SeedDataBase ();
     }
 }

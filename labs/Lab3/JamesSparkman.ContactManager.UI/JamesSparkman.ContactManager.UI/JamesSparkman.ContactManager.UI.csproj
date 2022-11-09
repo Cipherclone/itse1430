@@ -6,6 +6,9 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Title>Contact Manager</Title>
+    <Authors>James Spakman</Authors>
+    <Product>Contact Manager</Product>
   </PropertyGroup>
 
   <ItemGroup>

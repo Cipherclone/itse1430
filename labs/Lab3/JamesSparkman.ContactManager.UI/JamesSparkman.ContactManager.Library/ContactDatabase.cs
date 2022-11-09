@@ -137,6 +137,29 @@ namespace JamesSparkman.ContactManager.Library
             return true;
         }
 
+        /// <summary>Seeds database with some contacts.</summary>
+        public void SeedDataBase()
+        {
+            Contact seed1 = new Contact();
+            seed1.FirstName = "Alex";
+            seed1.LastName = "Johnson";
+            seed1.Email = "alexjohnson@email.com";
+
+            Contact seed2 = new Contact();
+            seed2.FirstName = "Isabelle";
+            seed2.LastName = "Jones";
+            seed2.Email = "isabellejones@email.com";
+
+            Contact seed3 = new Contact();
+            seed3.FirstName = "Adam";
+            seed3.LastName = "Freeman";
+            seed3.Email = "adamfreeman@email.com";
+
+            Add(seed1, out var error);
+            Add(seed2, out var error2);
+            Add(seed3, out var error3);
+        }
+
         #region Private Members
         
         /// <summary>Finds Contact by ID</summary>

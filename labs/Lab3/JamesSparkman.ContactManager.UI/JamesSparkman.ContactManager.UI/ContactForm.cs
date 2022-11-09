@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * James Sparkman
+ * Lab 3
+ * Fall 2022
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,13 +20,18 @@ namespace JamesSparkman.ContactManager.UI
 {
     public partial class ContactForm : Form
     {
+        #region Construction
         public ContactForm ()
         {
             InitializeComponent();
         }
+        #endregion
 
+        /// <summary>Selected Contract used for editing.</summary>
         public Contact SelectedContact { get; set; }
 
+        /// <summary>Puts the selected data into the texboxes.</summary>
+        /// <param name="e"></param>
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad ( e );
@@ -37,6 +48,7 @@ namespace JamesSparkman.ContactManager.UI
             ValidateChildren();
         }
 
+        /// <summary>Saves contact made to the database</summary>
         private void OnSave ( object sender, EventArgs e )
         {
             if (!ValidateChildren())
@@ -64,11 +76,13 @@ namespace JamesSparkman.ContactManager.UI
 
         #region Private Members
 
+        /// <summary>Shows an error message on screen.</summary>
+        /// <param name="message">Error Message</param>
+        /// <param name="title">Window Title</param>
         private void DisplayError (string message, string title)
         {
             MessageBox.Show (this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
 
         #endregion
     }

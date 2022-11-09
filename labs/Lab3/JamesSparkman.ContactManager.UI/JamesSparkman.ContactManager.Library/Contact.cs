@@ -5,7 +5,7 @@
  */
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
-
+using System.Reflection;
 
 namespace JamesSparkman.ContactManager.Library
 {
@@ -13,7 +13,6 @@ namespace JamesSparkman.ContactManager.Library
     public class Contact : IValidatableObject
     {
         #region Construction
-        // TODO add constructors
         public Contact ()
         {
             
@@ -59,8 +58,8 @@ namespace JamesSparkman.ContactManager.Library
         public bool IsFavorite { get; set; } = false;
 
         /// <summary>Checks if a given string is an Email Address</summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">String to check if valid</param>
+        /// <returns>True is given email is valid</returns>
         public bool IsValidEmail(string source)
         {
             return MailAddress.TryCreate(source, out var address);
@@ -87,8 +86,15 @@ namespace JamesSparkman.ContactManager.Library
             contact.IsFavorite = IsFavorite;
         }
 
+        ///<inheritdoc />
+        public override string ToString ()
+        {
+            return Email;
+        }
+
+
         /// <summary>
-        /// Validates a E-Mail
+        /// Validates a contact
         /// </summary>
         /// <param name="validationContext"></param>
         /// <returns>List of Errors (if any)</returns>
