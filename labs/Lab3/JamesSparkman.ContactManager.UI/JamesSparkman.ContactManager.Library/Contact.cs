@@ -4,6 +4,7 @@
  * Fall 2022
  */
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 
 
 namespace JamesSparkman.ContactManager.Library
@@ -62,7 +63,7 @@ namespace JamesSparkman.ContactManager.Library
         /// <returns></returns>
         public bool IsValidEmail(string source)
         {
-            return System.Net.Mail.MailAddress.TryCreate(source, out var address);
+            return MailAddress.TryCreate(source, out var address);
         }
 
         /// <summary>Clones a Contact Object</summary>
@@ -97,7 +98,7 @@ namespace JamesSparkman.ContactManager.Library
 
             if (LastName.Length == 0)
                 errors.Add(new ValidationResult("Last name is required", new[] { nameof(LastName) }));
-            if (IsValidEmail(Email))
+            if (!IsValidEmail(Email))
                 errors.Add(new ValidationResult("A Valid Email is required", new[] { nameof(Email) }));
 
             return errors;

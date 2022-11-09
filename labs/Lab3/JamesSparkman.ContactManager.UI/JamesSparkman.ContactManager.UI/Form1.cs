@@ -4,7 +4,7 @@
  * Fall 2022
  */
 
-using JamesSparkman.ContactManager.Library;
+using JamesSparkman.ContactManager.Library; 
 
 namespace JamesSparkman.ContactManager.UI
 {
@@ -22,6 +22,26 @@ namespace JamesSparkman.ContactManager.UI
             UpdateUI(true);
         }
 
+        private void OnContactAdd ( object sender, EventArgs e )
+        {
+            var child = new ContactForm();
+
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                if (_contacts.Add(child.SelectedContact, out var error) != null)
+                {
+                    UpdateUI();
+                    return;
+
+                }
+                //if (_contacts.Add(child.Sele))
+            } while (true);
+        }
+
+
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var about = new AboutForm();
@@ -35,25 +55,23 @@ namespace JamesSparkman.ContactManager.UI
         }
         
         #region Private Members
-
+        private void UpdateUI ()
+        {
+            UpdateUI(false);
+        }
         private void UpdateUI (bool initialLoad)
         {
             var contacts = _contacts.GetAll();
 
             _lstContacts.Items.Clear();
 
-            var items = contacts.ToArray();
+            var items = contacts.OrderBy(x => x.LastName).ThenBy(x => x.FirstName).ToArray();
             _lstContacts.Items.AddRange(items);
         }
 
         private IContactDatabase _contacts = new ContactDatabase();
         #endregion
 
-        private void OnContactAdd ( object sender, EventArgs e )
-        {
-            var child = new ContactForm();
-
-           
-        }
+        
     }
 }
