@@ -5,7 +5,6 @@ namespace MovieLibrary
     /// <summary>Provides a database of movies.</summary>
     public abstract class MovieDatabase : IMovieDatabase
     {
-        //TODO: Seed database
 
         /// <summary>Adds a movie to the database.</summary>
         /// <param name="movie">The movie to add.</param>
@@ -22,23 +21,15 @@ namespace MovieLibrary
 
             //Validate movie
             if (movie == null)
-            {
-                errorMessage = "Movie cannot be null";
-                return null;
-            };
+                throw new ArgumentNullException(nameof(movie));
 
             //Use IValidatableObject Luke...
-            //if (!movie.Validate(out errorMessage))
-            if (!ObjectValidator.IsValid(movie, out errorMessage))
-                return null;
-
+            ObjectValidator.Validate(movie);
+                
             //Must be unique
             var existing = FindByTitle(movie.Title);
             if (existing != null)
-            {
-                errorMessage = "Movie must be unique";
-                return null;
-            };
+                throw new InvalidOperationException("Movie title must be unique.");
 
             //Add
             movie = AddCore(movie);
@@ -58,8 +49,11 @@ namespace MovieLibrary
         /// </remarks>
         public Movie Get ( int id )
         {
+            //TODO: error
+
             if (id <= 0)
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than 0");
+                
 
             //foreach (var movie in _movies)
             //    if (movie?.Id == id)
@@ -99,7 +93,7 @@ namespace MovieLibrary
         public void Remove ( int id )
         {
             if (id <= 0)
-                return;
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0");
 
             RemoveCore(id);
             //Enumerate array looking for match
@@ -129,30 +123,24 @@ namespace MovieLibrary
         public bool Update ( int id, Movie movie, out string errorMessage )
         {
             //Validate movie
+            if (id <=0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0");
+            
             if (movie == null)
-            {
-                errorMessage = "Movie cannot be null";
-                return false;
-            };
-            //if (!movie.Validate(out errorMessage))
-            if (!ObjectValidator.IsValid(movie, out errorMessage))
-                return false;
+                throw new ArgumentNullException(nameof(movie));
+
+            ObjectValidator.Validate(movie);
 
             //Movie must already exist
             var oldMovie = GetCore(id);
             if (oldMovie == null)
-            {
-                errorMessage = "Movie does not exist";
-                return false;
-            };
+                throw new ArgumentException("Movie does not exist", nameof(movie));
+            
 
             //Must be unique
             var existing = FindByTitle(movie.Title);
             if (existing != null && existing.Id != id)
-            {
-                errorMessage = "Movie must be unique";
-                return false;
-            };
+                throw new InvalidOperationException("Movie title must be unique.");
 
             UpdateCore(id, movie);
             ////Copy 
