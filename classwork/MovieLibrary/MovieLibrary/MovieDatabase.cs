@@ -16,7 +16,7 @@ namespace MovieLibrary
         ///   - Movie is not valid
         ///   - Movie title already exists
         /// </remarks>
-        public Movie Add ( Movie movie, out string errorMessage )
+        public Movie Add ( Movie movie)
         {
 
             //Validate movie
@@ -34,7 +34,7 @@ namespace MovieLibrary
             //Add
             movie = AddCore(movie);
 
-            errorMessage = null;
+            
             return movie;
         }
 
@@ -49,15 +49,9 @@ namespace MovieLibrary
         /// </remarks>
         public Movie Get ( int id )
         {
-            //TODO: error
 
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than 0");
-                
-
-            //foreach (var movie in _movies)
-            //    if (movie?.Id == id)
-            //        return movie.Clone();  //Clone because of ref type
 
             return GetCore(id);
         }
@@ -71,15 +65,6 @@ namespace MovieLibrary
         public IEnumerable<Movie> GetAll ()
         {
             return GetAllCore();
-            //var items = new List<Movie>();
-
-            //when returning an array, clone it
-            //var items = new Movie[_movies.Count];
-            //for (var index = 0; index < _movies.Length; ++index)
-            //    items[index] = _movies[index]?.Clone();
-
-            
-            //return items;
         }
 
         protected abstract IEnumerable<Movie> GetAllCore ();
@@ -96,14 +81,6 @@ namespace MovieLibrary
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0");
 
             RemoveCore(id);
-            //Enumerate array looking for match
-            //for (var index = 0; index < _movies.Count; ++index)
-            //    if (_movies[index]?.Id == id)
-            //    {
-            //        //_movies[index] = null;
-            //        _movies.RemoveAt(index);
-            //        return;
-            //    };
         }
 
         protected abstract void RemoveCore ( int id );
@@ -120,7 +97,7 @@ namespace MovieLibrary
         ///   - Movie is not valid
         ///   - Movie title already exists
         /// </remarks>
-        public bool Update ( int id, Movie movie, out string errorMessage )
+        public void Update ( int id, Movie movie)
         {
             //Validate movie
             if (id <=0)
@@ -147,8 +124,6 @@ namespace MovieLibrary
             //movie.CopyTo(oldMovie);
             //oldMovie.Id = id;
 
-            errorMessage = null;
-            return true;
         }
 
         protected abstract void UpdateCore ( int id, Movie movie );

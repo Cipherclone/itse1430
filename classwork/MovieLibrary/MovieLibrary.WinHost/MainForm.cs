@@ -46,16 +46,26 @@ namespace MovieLibrary.WinHost
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                if (_movies.Add(child.SelectedMovie, out var error) != null)
+                try
                 {
+                    _movies.Add(child.SelectedMovie);
                     UpdateUI();
-                    return;                    
-                };
+                    return;
+                } catch (InvalidOperationException ex)
+                {
+                    DisplayError("Movies must be unique.", "Add failed");
+                } catch (ArgumentException ex)
+                {
+                    DisplayError("You messed up dev..", "Add Failed");
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message, "Add Failed");
+                }
 
-                DisplayError(error, "Add Failed");
+                
             } while (true);
         }
-        
+
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             var movie = GetSelectedMovie();
@@ -65,8 +75,14 @@ namespace MovieLibrary.WinHost
             if (!Confirm($"Are you sure you want to delete '{movie.Title}'?", "Delete"))
                 return;
 
-            _movies.Remove(movie.Id);
-            UpdateUI();
+            try
+            {
+                _movies.Remove(movie.Id);
+                UpdateUI();
+            } catch (Exception ex)
+            {
+                DisplayError(ex.Message, "Delete Fail");
+            };
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -83,13 +99,16 @@ namespace MovieLibrary.WinHost
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                if (_movies.Update(movie.Id, child.SelectedMovie, out var error))
+                try
                 {
+                    _movies.Update(movie.Id, child.SelectedMovie);
                     UpdateUI();
                     return;
-                };
 
-                DisplayError(error, "Update Failed");
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message, "Update Failed");
+                };
             } while (true);
         }
 
