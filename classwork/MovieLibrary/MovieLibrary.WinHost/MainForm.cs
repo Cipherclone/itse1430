@@ -60,9 +60,10 @@ namespace MovieLibrary.WinHost
                 } catch (Exception ex)
                 {
                     DisplayError(ex.Message, "Add Failed");
+
                 }
 
-                
+
             } while (true);
         }
 
@@ -99,8 +100,10 @@ namespace MovieLibrary.WinHost
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
 
+
                 try
                 {
+                    Cursor = Cursors.WaitCursor;
                     _movies.Update(movie.Id, child.SelectedMovie);
                     UpdateUI();
                     return;
@@ -108,6 +111,9 @@ namespace MovieLibrary.WinHost
                 } catch (Exception ex)
                 {
                     DisplayError(ex.Message, "Update Failed");
+                } finally
+                {
+                    Cursor = Cursors.Default;
                 };
             } while (true);
         }
@@ -138,7 +144,7 @@ namespace MovieLibrary.WinHost
             var movies = _movies.GetAll();
             
             //if (initialLoad && movies.Count() == 0)
-            if (initialLoad && movies.Any())
+            if (initialLoad && !movies.Any())
             {
                 if (Confirm("Do you want to seed some movies?", "Database Empty!"))
                 {
