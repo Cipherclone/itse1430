@@ -7,7 +7,7 @@ namespace MovieLibrary.Sql
         public SqlMovieDatabase(string connectionString)
         {
             _connectionString = connectionString;
-        }
+        
         protected override Movie AddCore ( Movie movie )
         {
             SqlConnection conn = null;
@@ -20,7 +20,7 @@ namespace MovieLibrary.Sql
             } finally
             {
                 // close connect
-                conn.Close();
+                conn.Close();   
             }
             
         }
