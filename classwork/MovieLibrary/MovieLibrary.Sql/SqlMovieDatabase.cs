@@ -1,56 +1,107 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace MovieLibrary.Sql
 {
     public class SqlMovieDatabase : MovieDatabase
     {
-        public SqlMovieDatabase(string connectionString)
+        public SqlMovieDatabase ( string connectionString )
         {
             _connectionString = connectionString;
-        
+        }
+
         protected override Movie AddCore ( Movie movie )
         {
-            SqlConnection conn = null;
-
-            try
+            //Using statement
+            // IDisposable
+            using (var conn = OpenConnection())
             {
-                conn = OpenConnection();
-
                 throw new NotImplementedException();
-            } finally
-            {
-                // close connect
-                conn.Close();   
-            }
-            
+            };
+
+            #region try-finally equivalent
+            //SqlConnection conn = null;
+
+            //try
+            //{
+            //    conn = OpenConnection();
+
+            //    throw new NotImplementedException();
+            //} finally
+            //{
+            //    //Clean up connection
+            //    conn?.Close();
+            //    conn?.Dispose();
+            //};
+            #endregion
         }
+
         protected override Movie FindByTitle ( string title )
         {
-            var conn = OpenConnection();
-
-            // close connect
-            conn.Close();
-            // Find by ID
-            return null;
+            using (var conn = OpenConnection())
+            {
+                throw new NotImplementedException();
+            };
         }
-        protected override IEnumerable<Movie> GetAllCore () {
-            var conn = OpenConnection();
 
-            conn.Close();
+        protected override IEnumerable<Movie> GetAllCore ()
+        {
+            var ds = new DataSet();
 
-            return Enumerable.Empty<Movie>();
+            using (var conn = OpenConnection())
+            {
+                //Create command 1 - using new
+                var cmd = new SqlCommand("GetMovies", conn);
+
+                //Need data adapter for Dataset
+                var da = new SqlDataAdapter(cmd);
+
+                //Buffered IO                
+                da.Fill(ds);
+            };
+
+            //Data loaded, can work with it now
+            // Find table and then enumerate rows to get data
+            var table = ds.Tables.OfType<DataTable>().FirstOrDefault();
+            if (table != null)
+            {
+                foreach (DataRow row in table.Rows.OfType<DataRow>())
+                {
+                    yield return new Movie() {
+                        Id = (int)row[0],                   //Ordinal index with cast
+                        Title = row["Name"] as string,      //Name with cast
+                        Description = row.IsNull(2) ? "" : row.Field<string>(2), //Ordinal index with generic
+                        Rating = row.Field<string>("Rating"), //Column with generic
+                        RunLength = row.Field<int>("RunLength"),
+                        ReleaseYear = row.Field<int>("ReleaseYear"),
+                        IsClassic = row.Field<bool>("IsClassic"),
+                    };
+                };
+            };
         }
+
         protected override Movie GetCore ( int id )
         {
-            var conn = OpenConnection();
-
-            // close connect
-            conn.Close();
-            // Find by ID
-            return null;
+            using (var conn = OpenConnection())
+            {
+                throw new NotImplementedException();
+            };
         }
-        protected override void RemoveCore ( int id ) => throw new NotImplementedException();
-        protected override void UpdateCore ( int id, Movie movie ) => throw new NotImplementedException();
+
+        protected override void RemoveCore ( int id )
+        {
+            using (var conn = OpenConnection())
+            {
+                throw new NotImplementedException();
+            };
+        }
+        protected override void UpdateCore ( int id, Movie movie )
+        {
+            using (var conn = OpenConnection())
+            {
+                throw new NotImplementedException();
+            };
+        }
 
         private SqlConnection OpenConnection ()
         {
