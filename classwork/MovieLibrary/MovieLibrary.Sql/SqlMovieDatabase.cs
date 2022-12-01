@@ -56,6 +56,7 @@ namespace MovieLibrary.Sql
             using (var conn = OpenConnection())
             {
                 var cmd = new SqlCommand("FindByName", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@name", title);
 
                 using (var reader = cmd.ExecuteReader())
@@ -65,7 +66,7 @@ namespace MovieLibrary.Sql
                         return new Movie() {
                             Id = (int)reader[0],
                             Title = reader["Name"] as string,
-                            Description = reader["Description"] as string,
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             RunLength = reader.GetInt32("Runlength"),
                             Rating = reader.GetString("Rating"),
                             ReleaseYear = reader.GetFieldValue<int>("ReleaseYear"),

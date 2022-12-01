@@ -37,6 +37,7 @@ namespace MovieLibrary
         public int Id { get; set; }
 
         /// <summary>Gets or sets the title.</summary>
+        [RequiredAttribute()]
         public string Title
         {
             get => _title ?? "";
@@ -113,8 +114,6 @@ namespace MovieLibrary
         {
             var errors = new List<ValidationResult>();
 
-            if (Title.Length == 0)
-                errors.Add(new ValidationResult("Title is required", new[] { nameof(Title) } ));
 
             if (Rating.Length == 0)
                 errors.Add(new ValidationResult("Rating is required", new[] { nameof(Rating) }));
