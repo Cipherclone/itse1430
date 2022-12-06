@@ -1,111 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MovieLibrary.Memory
+﻿namespace MovieLibrary.Memory
 {
-    public class MemoryMovieDatabase : MovieDatabase    
+    /// <summary>Provides an implementation of <see cref="IMovieDatabase"/> using an in-memory list.</summary>
+    public class MemoryMovieDatabase : MovieDatabase
     {
-        //TODO: Seed database
-        
-
-        protected override Movie AddCore ( Movie movie)
+        /// <inheritdoc />
+        protected override Movie AddCore ( Movie movie )
         {
-            //Add
             movie.Id = _id++;
             _movies.Add(movie.Clone());
+
             return movie;
         }
 
+        /// <inheritdoc />
         protected override Movie GetCore ( int id )
         {
-            return _movies.FirstOrDefault( x => x.Id == id )?.Clone(); 
-
-            //foreach (var movie in _movies)
-            //    if (movie?.Id == id)
-            //        return movie.Clone();  //Clone because of ref type
-
-            //return null;
+            return _movies.FirstOrDefault(x => x.Id == id)?.Clone();
         }
 
+        /// <inheritdoc />
+        //When method returns IEnumerable<T> you MAY use an iterator instead
         protected override IEnumerable<Movie> GetAllCore ()
         {
-            return _movies.Select( x => x.Clone() );
+            // Select transforms IEnumerable<S> into IEnumerable<T>
+            //return _movies.Select(x => x.Clone());
 
-            // LINQ syntax
-            //  from tempVar in IEnumerable<T>
-            //  where <condition>
-            //  orderby
-            //  select
-            //return from movie in _movies
-                // ~~where movie.Id > 10~~ // OPTIONAL
-                //orderby movie.Title, movie.ReleaseYear // OPTIONAL
-                //select movie.Clone();
-
-            //foreach (var movie in _movies)
-            //{
-            //    //items.Add(movie.Clone());
-            //    yield return movie.Clone(); // the yield makes it an iterator!
-            //}
+            //LINQ syntax version
+            //   from tempVar in IEnumerable<T>
+            //   where <condition>
+            //   order by
+            //   select <expression>
+            return from movie in _movies
+                   //where movie.Id > 10
+                   orderby movie.Title, movie.ReleaseYear
+                   select movie.Clone();
         }
 
+        /// <inheritdoc />
         protected override void RemoveCore ( int id )
         {
             var movie = FindById(id);
             if (movie != null)
-                _movies.Remove( movie );
+                _movies.Remove(movie);
         }
 
-        protected override void UpdateCore ( int id, Movie movie)
+        /// <inheritdoc />
+        protected override void UpdateCore ( int id, Movie movie )
         {
-            var oldMovie = FindById(id);
+            //Copy 
+            var oldMovie = FindById(id);            
             if (oldMovie == null)
                 throw new NotSupportedException("Movie does not exist.");
-            //Copy 
+
             movie.CopyTo(oldMovie);
             oldMovie.Id = id;
         }
 
+        /// <inheritdoc />
+        protected override Movie FindByTitle ( string title )
+        {
+            return _movies.FirstOrDefault(
+                        x => String.Equals(x.Title, title, StringComparison.OrdinalIgnoreCase));
+        }
+
         #region Private Members
 
+        //Action -> Method with no return type
+        // Action<T> -> parameter of T
+        // Action<T1..T16> -> parameters of T1 to T16
+        //Func<R> -> Method with a return type of R
+        // Func<T, R> -> parameter of T
+        // Func<T1..T16, R> -> parameters of T1 to T16
         private Movie FindById ( int id )
         {
+            // Where takes a IEnumerable<T> and returns all items that match the predicate
+            // defined by Func<Movie, bool>
+            //return _movies.Where(FilterById)
+            //              .FirstOrDefault();
+            // If you need extra data then a nested class with the data would be needed
+            // return _movies.FirstOrDefault(new MyHiddenClass(id).FilterById);
             //return _movies.FirstOrDefault(FilterById);
+
+            //lambda - anonymous method/function
+            //  foo ( Movie x ) { return x.Id == id; }
+            return _movies.FirstOrDefault(x => x.Id == id);
+
             //foreach (var movie in _movies)
             //    if (movie.Id == id)
             //        return movie;
 
             //return null;
-            return _movies.FirstOrDefault(x => x.Id == id);
         }
-
-        ////private bool FilterById ( Movie movie )
-        ////{
-        ////    return true;
-        ////}
-
-        protected override Movie FindByTitle ( string title )
-        {
-            return _movies.FirstOrDefault(x => String.Equals(x.Title, title, StringComparison.OrdinalIgnoreCase));
-            
-            
-            //foreach (var movie in _movies)
-            //    if (String.Equals(movie.Title, title, StringComparison.OrdinalIgnoreCase))
-            //        return movie;
-
-            //return null;
-        }
-
+        //private bool FilterById ( Movie movie )
+        //{
+        //    return true;
+        //}
+        
         private int _id = 1;
 
-        //System.Collections.Generic
         //private Movie[] _movies = new Movie[100];
         private List<Movie> _movies = new List<Movie>();
-        //private Collection<Movie> _movies = new Collection<Movie>();
-        //List<string>;
-        //  List<int>;
         #endregion
     }
 }

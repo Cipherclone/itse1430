@@ -16,7 +16,7 @@ namespace MovieLibrary.WinHost
         {
             var host = Host.CreateDefaultBuilder().Build();
             s_configuration = host.Services.GetRequiredService<IConfiguration>();
-
+            
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
