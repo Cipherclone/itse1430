@@ -53,19 +53,22 @@ namespace MovieLibrary.WinHost
                     return;
                 } catch (InvalidOperationException ex)
                 {
-                    DisplayError("Movies must be unique.", "Add failed");
+                    DisplayError("Movies must be unique.", "Add Failed");                    
                 } catch (ArgumentException ex)
                 {
-                    DisplayError("You messed up dev..", "Add Failed");
+                    DisplayError("You messed up developer.", "Add Failed");
                 } catch (Exception ex)
                 {
                     DisplayError(ex.Message, "Add Failed");
-                }
 
+                    //Rethrow
+                    //throw ex;
+                    //throw;
+                };
                 
             } while (true);
         }
-
+        
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             var movie = GetSelectedMovie();
@@ -81,8 +84,8 @@ namespace MovieLibrary.WinHost
                 UpdateUI();
             } catch (Exception ex)
             {
-                DisplayError(ex.Message, "Delete Fail");
-            };
+                DisplayError(ex.Message, "Delete Failed");
+            };            
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -98,16 +101,24 @@ namespace MovieLibrary.WinHost
             {
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
-
+                
                 try
                 {
-                    _movies.Update(movie.Id, child.SelectedMovie);
-                    UpdateUI();
-                    return;
+                    Cursor = Cursors.WaitCursor;                    
+                    _movies.Update(movie.Id, child.SelectedMovie);                    
+                    System.Threading.Thread.Sleep(1000);
+                    //Cursor = Cursors.Default;
 
+                    UpdateUI();
+                    return;                    
                 } catch (Exception ex)
                 {
+                    //Cursor = Cursors.Default;
                     DisplayError(ex.Message, "Update Failed");
+                } finally
+                {
+                    //Guaranteed to run
+                    Cursor = Cursors.Default;
                 };
             } while (true);
         }
@@ -132,16 +143,24 @@ namespace MovieLibrary.WinHost
             UpdateUI(false);
         }
 
-        private void UpdateUI ( bool initialLoad)
+        private void UpdateUI ( bool initialLoad )
         {
             //Get movies
             var movies = _movies.GetAll();
-            
-            //if (initialLoad && movies.Count() == 0)
-            if (initialLoad && movies.Any())
+
+            //Extension methods - static methods on static classes
+            // 1. Expose a static method as an instance method for discoverability
+            // 2. Called like instance methods (on an instance)
+            // 3. Compiler rewrites code to call static method on static class
+            //Enumerable.Count(movies) == movies.Count()            
+            if (initialLoad && 
+                    //movies.Count() == 0)
+                    //movies.FirstOrDefault() == null)            
+                    !movies.Any())
             {
-                if (Confirm("Do you want to seed some movies?", "Database Empty!"))
+                if (Confirm("Do you want to seed some movies?", "Database Empty"))
                 {
+                    //SeedMovieDatabase.Seed(_movies);
                     _movies.Seed();
                     movies = _movies.GetAll();
                 };
@@ -149,27 +168,31 @@ namespace MovieLibrary.WinHost
 
             _lstMovies.Items.Clear();
 
-            var items = movies.OrderBy(x => x.Title).ThenBy(x => x.ReleaseYear).ToArray();
-            //var items = movies.OrderBy(OrderByTitle).ThenBy(OrderByReleaseYear).ToArray();
+            //Order movies by title, then by release year
+            //Chain calls together
+            //          movies.OrderBy(OrderByTitle());
+            //  foreach item in source
+            //      sortValue = func(item)
+            //      compare sortValue to other values
+            //var items = movies.OrderBy(OrderByTitle)
+            //               .ThenBy(OrderByReleaseYear)
+            var items = movies.OrderBy(x => x.Title)
+                              .ThenBy(x => x.ReleaseYear)
+                              .ToArray();
+            //movies = movies.ThenBy();
 
+            //Use Enumerable 
+            //_lstMovies.Items.AddRange(Enumerable.ToArray(movies));
             _lstMovies.Items.AddRange(items);
             //foreach (var movie in movies)
             //    _lstMovies.Items.Add(movie);
         }
 
-        private string OrderByTitle (Movie movie)
-        {
-            return movie.Title;
-        }
-
-        private int OrderByReleaseYear (Movie movie)
-        {
-            return movie.ReleaseYear;
-        }
-
         private Movie GetSelectedMovie ()
         {
+            //var allTextBoxes = Controls.OfType<TextBox>();
             //IEnumerable<Movie> temp = _lstMovies.SelectedItems.OfType<Movie>();
+
             return _lstMovies.SelectedItem as Movie;
         }
 
@@ -186,7 +209,7 @@ namespace MovieLibrary.WinHost
         }
 
         //private Movie _movie;
-        private IMovieDatabase _movies = new Memory.MemoryMovieDatabase();
+        private IMovieDatabase _movies = new Sql.SqlMovieDatabase(Program.GetConnectionString("AppDatabase"));
         #endregion        
     }
 }

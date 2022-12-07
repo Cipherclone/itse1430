@@ -1,11 +1,10 @@
-﻿
-namespace MovieLibrary
+﻿namespace MovieLibrary
 {
+    /// <summary>Provides a database of movies.</summary>
     public interface IMovieDatabase
     {
         /// <summary>Adds a movie to the database.</summary>
         /// <param name="movie">The movie to add.</param>
-        /// <param name="errorMessage">The error message, if any.</param>
         /// <returns>The new movie.</returns>
         /// <remarks>
         /// Fails if:
@@ -25,7 +24,7 @@ namespace MovieLibrary
         Movie Get ( int id );
 
         /// <summary>Gets all the movies.</summary>
-        /// <returns>The movies.</returns>
+        /// <returns>The movies.</returns>        
         IEnumerable<Movie> GetAll ();
 
         /// <summary>Remove a movie.</summary>
@@ -38,8 +37,6 @@ namespace MovieLibrary
 
         /// <summary>Updates a movie in the database.</summary>
         /// <param name="movie">The new movie information.</param>
-        /// <param name="errorMessage">The error message, if any.</param>
-        /// <returns>true if successful or false otherwise.</returns>
         /// <remarks>
         /// Fails if:
         ///   - Id is <= 0
