@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 using MovieLibrary.WebApp.Models;
+
+using System.Diagnostics;
 
 namespace MovieLibrary.WebApp.Controllers
 {
