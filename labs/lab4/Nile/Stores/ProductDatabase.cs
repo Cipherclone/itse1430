@@ -1,6 +1,8 @@
 /*
  * ITSE 1430
  */
+using System.Reflection.Metadata.Ecma335;
+
 namespace Nile.Stores
 {
     /// <summary>Base class for product database.</summary>
@@ -13,15 +15,13 @@ namespace Nile.Stores
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
 
+            
+
+            var existing = Get(product.Id);
+            if (existing != null)
+                throw new InvalidOperationException("Id must be unique");
+
             ObjectValidator.Validate(product);
-
-            
-
-            
-            //TODO: Check arguments
-
-            //TODO: Validate product
-            
 
             //Emulate database by storing copy
             return AddCore(product);
@@ -30,7 +30,8 @@ namespace Nile.Stores
         /// <inheritdoc />
         public Product Get ( int id )
         {
-            //TODO: Check arguments
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
             return GetCore(id);
         }
@@ -44,7 +45,9 @@ namespace Nile.Stores
         /// <inheritdoc />
         public void Remove ( int id )
         {
-            //TODO: Check arguments
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
+
 
             RemoveCore(id);
         }
@@ -52,16 +55,14 @@ namespace Nile.Stores
         /// <inheritdoc />
         public Product Update ( Product product )
         {
-            //TODO: Check arguments
             if (product.Id <= 0)
-                throw new ArgumentOutOfRangeException(nameof(product.Id), "Id must be > 0");
+                throw new ArgumentOutOfRangeException(nameof(product.Id), "Id must be > 0.");
+
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
 
+
             ObjectValidator.Validate(product);
-
-
-            //TODO: Validate product
 
             //Get existing product
             var existing = GetCore(product.Id);
