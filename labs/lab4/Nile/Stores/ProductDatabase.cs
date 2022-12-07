@@ -9,9 +9,19 @@ namespace Nile.Stores
         /// <inheritdoc />
         public Product Add ( Product product )
         {
+
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
+
+            ObjectValidator.Validate(product);
+
+            
+
+            
             //TODO: Check arguments
 
             //TODO: Validate product
+            
 
             //Emulate database by storing copy
             return AddCore(product);
@@ -43,6 +53,13 @@ namespace Nile.Stores
         public Product Update ( Product product )
         {
             //TODO: Check arguments
+            if (product.Id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(product.Id), "Id must be > 0");
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
+
+            ObjectValidator.Validate(product);
+
 
             //TODO: Validate product
 

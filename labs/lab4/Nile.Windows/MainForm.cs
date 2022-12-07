@@ -33,13 +33,21 @@ namespace Nile.Windows
         private void OnProductAdd( object sender, EventArgs e )
         {
             var child = new ProductDetailForm("Product Details");
+            
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
             //TODO: Handle errors
             //Save product
-            _database.Add(child.Product);
-            UpdateList();
+            try
+            {
+                _database.Add(child.Product);
+                UpdateList();
+            }
+            catch (Exception ex)
+            {
+
+            };
         }
 
         private void OnProductEdit( object sender, EventArgs e )
